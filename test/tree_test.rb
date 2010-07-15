@@ -43,11 +43,28 @@ class TreeTest < Test::Unit::TestCase
      tree.head.right = "3"
     end
   end
-
+  
   def test_insert_element_via_array
     tree = Tree.new
     tree.add([0,1,2,3,4,5,6,7])
-    tree.traversal1(tree.head)
+  end
+  
+  def test_inorder_traversal
+    tree = Tree.new
+    tree.add([0,1,2,3,4,5,6,7])
+    assert_equal [7, 3, 1, 4, 0, 5, 2, 6],tree.inorder_traversal(tree.head)
+  end
+  
+  def test_preorder_traversal
+    tree = Tree.new
+    tree.add([0,1,2,3,4,5,6,7])
+    assert_equal [0, 1, 3, 7, 4, 2, 5, 6],tree.preorder_traversal(tree.head)
+  end
+  
+  def test_postorder_traversal
+    tree = Tree.new
+    tree.add([0,1,2,3,4,5,6,7])
+    assert_equal [7, 3, 4, 1, 5, 6, 2, 0],tree.postorder_traversal(tree.head)
   end
   
 end

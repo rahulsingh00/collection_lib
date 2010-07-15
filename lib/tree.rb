@@ -8,14 +8,21 @@ class Tree
     attr_reader :left, :right
 
     def initialize(obj)
-      @left = nil
-      @right = nil
+      @children = Array.new(2)
       @element = obj
+    end
+    
+    def left
+      @children[0]
+    end
+    
+    def right
+      @children[1]
     end
 
     def left=(obj)
       if @element.class.eql?(obj.class)
-        @left = Node.new(obj)
+        @children[0] = Node.new(obj)
       else
         raise "The type of elements doesn't match"
       end
@@ -23,7 +30,7 @@ class Tree
 
     def right=(obj)
       if @element.class.eql?(obj.class)
-        @right = Node.new(obj)
+        @children[1] = Node.new(obj)
       else
         raise "The type of elements doesn't match"
       end
@@ -45,16 +52,6 @@ class Tree
     end
   end
 
-  def traversal1(node)
-    if !node.left.nil?
-      traversal1(node.left)
-    end
-    puts node.element
-    if !node.right.nil?
-      traversal1(node.right)
-    end
-  end
-
   def insert(array,index,current_node)
     if (2*index + 1) <= (array.size - 1)
       current_node.left = array[2*index + 1]
@@ -73,6 +70,39 @@ class Tree
     else
       raise "The add function only accepts an array as an argument"
     end
+  end
+
+  def inorder_traversal(node, traversed_array=[])
+    if !node.left.nil?
+      inorder_traversal(node.left,traversed_array)
+    end
+    traversed_array << node.element
+    if !node.right.nil?
+      inorder_traversal(node.right,traversed_array)
+    end
+    return traversed_array
+  end
+  
+  def preorder_traversal(node, traversed_array=[])
+    traversed_array << node.element
+    if !node.left.nil?
+      preorder_traversal(node.left, traversed_array)
+    end
+    if !node.right.nil?
+      preorder_traversal(node.right, traversed_array)
+    end
+    return traversed_array
+  end
+  
+  def postorder_traversal(node, traversed_array=[])
+    if !node.left.nil?
+      postorder_traversal(node.left, traversed_array)
+    end
+    if !node.right.nil?
+      postorder_traversal(node.right, traversed_array)
+    end
+    traversed_array << node.element
+    return traversed_array
   end
 
 end
