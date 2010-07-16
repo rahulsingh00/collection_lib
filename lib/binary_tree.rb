@@ -1,4 +1,4 @@
-class Tree
+class BinaryTree
 
   attr_accessor :head
 
